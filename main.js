@@ -5,6 +5,9 @@ let goBtnEl = document.getElementById('go-btn');
 let menuEl = document.getElementById('menu');
 let tasksEl = document.getElementById('tasks');
 
+// Global Variables
+let tasks = [];
+
 // Go Btn - Menu Listener
 goBtnEl.addEventListener('click', goBtnHandler);
 
@@ -25,7 +28,9 @@ function goBtnHandler() {
 
 // MENU FUNCTIONS
 function addTask() {
-  console.log('Add Task');
+  let description = prompt("Enter task description: ")
+  tasks.push(newTask(description));
+  displayAll();
 }
 
 function toggleTask() {
@@ -38,4 +43,30 @@ function removeTask() {
 
 function clearAll() {
   console.log('Clear All');
+}
+
+// HELPER FUNCTIONS
+function newTask(taskDescription) {
+  return {
+    description: taskDescription, 
+    completed: ''
+  };
+}
+
+// Display all tasks in global tasks array
+function displayAll() {
+  let outputStr = '';
+  for (let i = 0; i < tasks.length; i++) {
+    outputStr += getTaskHTMLStr(tasks[i])
+  }
+  tasksEl.innerHTML = outputStr;
+}
+
+// Get html for given task
+function getTaskHTLStr(task) {
+  return `
+  <div>
+    ${i}: ${task.description}
+  </div>
+  `
 }
